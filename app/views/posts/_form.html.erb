@@ -16,16 +16,18 @@
     <%= form.text_area :body %>
   </div>
 
+  <%= form.button "Validate", formaction: new_post_path, formmethod: :get %>
+
   <div>
     <%= form.label :access, style: "display: block" %>
-    <%= form.text_field :access %>
+    <%= form.select :access, Post.accesses, include_blank: true %>
   </div>
-
+  <% if post.passcode_protected? %>
   <div>
     <%= form.label :passcode, style: "display: block" %>
     <%= form.text_field :passcode %>
   </div>
-
+  <% end %> 
   <div>
     <%= form.submit %>
   </div>
