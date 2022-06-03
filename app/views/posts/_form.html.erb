@@ -16,17 +16,19 @@
     <%= form.text_area :body %>
   </div>
 
-  <%= form.button "Validate", formaction: new_post_path, formmethod: :get %>
+  <div data-controller="form-element">
+    <%= form.button "Validate", formaction: new_post_path, formmethod: :get, data: { form_element_target: "submitbtn" } %>
 
-  <div>
-    <%= form.label :access, style: "display: block" %>
-    <%= form.select :access, Post.accesses, include_blank: true %>
+    <div>
+      <%= form.label :access, style: "display: block" %>
+      <%= form.select :access, Post.accesses, { include_blank: true }, { data: { action: "change->form-element#remotesubmit" } } %>
+    </div>
   </div>
   <% if post.passcode_protected? %>
-  <div>
-    <%= form.label :passcode, style: "display: block" %>
-    <%= form.text_field :passcode %>
-  </div>
+    <div>
+      <%= form.label :passcode, style: "display: block" %>
+      <%= form.text_field :passcode %>
+    </div>
   <% end %> 
   <div>
     <%= form.submit %>
